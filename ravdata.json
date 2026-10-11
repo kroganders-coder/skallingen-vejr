@@ -1,6 +1,7 @@
 {
-  "schema_version": 1,
-  "generated_at_utc": "2026-10-11T20:15:34.242926Z",
+  "schema_version": 2,
+  "generated_at_utc": "2026-10-11T21:43:25.387547Z",
+  "generated_at_local": "2026-10-11T23:43:25.386936+02:00",
   "status": {
     "complete": true,
     "downloads": {
@@ -9,7 +10,8 @@
       "esbjerg_water": true,
       "waves": true,
       "wind": true
-    }
+    },
+    "calculations": true
   },
   "requested_period": {
     "days_back": 7,
@@ -42,8 +44,9 @@
     "wind_forecast": "Open-Meteo ECMWF Forecast"
   },
   "important_notes": {
-    "esbjerg_water": "Copernicus zos is sea-surface height above geoid and is NOT the same datum as DMI sea-mean-deviation or LAT. Road-access thresholds must be calibrated against Copernicus zos.",
-    "marine_aggregation": "Values are spatial means over requested boxes. VMDR uses circular mean."
+    "esbjerg_water": "Access-reglen bruger den praktisk kalibrerede Copernicus Esbjerg-zos-grænse 0.35 m. Copernicus zos må ikke konverteres til DMI/LAT/DVR90 uden særskilt kalibrering.",
+    "marine_aggregation": "Values are spatial means over requested boxes. VMDR uses circular mean.",
+    "model_evaluation": "B50+A25 evalueres dagligt kl. 18:00 Europe/Copenhagen med lag 1..168. Originalens lag<24 betyder derfor 23 recent-timer."
   },
   "coverage": {
     "current": {
@@ -72,6 +75,578 @@
       "points": 336
     }
   },
+  "model_config": {
+    "version": "B50+A25 + W32/P32 v1.0",
+    "evaluation_hour_local": 18,
+    "recommendation": {
+      "source": "score_b50_a25 only",
+      "koer_min": 70.0,
+      "afvent_min": 60.0
+    },
+    "w32": {
+      "lookback_hours": 168,
+      "rolling_hours": 6,
+      "active_threshold_w6": 0.3,
+      "full_hours": 32,
+      "formula": "score_w32 = score_b50_a25 * clip(L_W/32)"
+    },
+    "p32": {
+      "lookback_hours": 48,
+      "destructive_threshold_nwh": 0.25,
+      "full_hours": 32,
+      "formula": "score_p32 = score_b50_a25 * (1 - clip(L_P/32))"
+    },
+    "access": {
+      "source": "Copernicus Esbjerg zos",
+      "threshold_m": 0.35,
+      "hunt_window_local": "18:00-02:00",
+      "rule": "CAR if any zos < threshold inside hunt window; otherwise BOAT"
+    }
+  },
+  "forecast": [
+    {
+      "date": "2026-10-11",
+      "date_label": "Søn 11/10",
+      "date_label_long": "Søndag 11/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-11T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-11T16:00:00Z",
+        "B50": 12.055641973365875,
+        "A25": 16.778560640312502,
+        "score_b50_a25": 24.273158388961924,
+        "score_w32": 3.7926809982753005,
+        "score_p32": 18.204868791721445,
+        "diagnostics": {
+          "bw": 0.05974693778746067,
+          "bh": 0.14955343458621634,
+          "bc": 0.44682143864631224,
+          "bi": 0.040700344471469384,
+          "bj": 0.00911339270590985,
+          "bp": 0.24530855833156992,
+          "aw": 0.0021053140096618365,
+          "ah": 0.3172015306272389,
+          "ac": 0.4819863292076164,
+          "ai": 0.03452383030721108,
+          "aj": 0.00041291121790299444,
+          "ap": 0.23964096549048963,
+          "w32_longest_hours": 5,
+          "w32_factor": 0.15625,
+          "p32_longest_hours": 8,
+          "p32_preserve_factor": 0.75,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-11T18:00:00+02:00",
+          "end": "2026-10-12T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-11T21:00:00+02:00",
+          "time_hm": "21:00",
+          "skallingen_zos_m": -0.7918878384185647,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-11T18:15:00+02:00",
+          "car_from_hm": "18:15",
+          "window_min_zos_m": -1.1635384615384616,
+          "window_max_zos_m": 0.46276923076923077
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-11]]"
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "date_label": "Man 12/10",
+      "date_label_long": "Mandag 12/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-12T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-12T16:00:00Z",
+        "B50": 11.221560268450299,
+        "A25": 25.90831076328646,
+        "score_b50_a25": 34.88780048207503,
+        "score_w32": 5.451218825324223,
+        "score_p32": 18.53414400610236,
+        "diagnostics": {
+          "bw": 0.04238723472928266,
+          "bh": 0.1381537361715969,
+          "bc": 0.45728408484534805,
+          "bi": 0.03699731585532307,
+          "bj": 0.008309362949838025,
+          "bp": 0.2712500424786819,
+          "aw": 0.04870821256038648,
+          "ah": 0.5525674572766159,
+          "ac": 0.5601225430448251,
+          "ai": 0.016670732096679165,
+          "aj": 0.0017655742661427457,
+          "ap": 0.22959365229339318,
+          "w32_longest_hours": 5,
+          "w32_factor": 0.15625,
+          "p32_longest_hours": 15,
+          "p32_preserve_factor": 0.53125,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-12T18:00:00+02:00",
+          "end": "2026-10-13T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-12T21:45:00+02:00",
+          "time_hm": "21:45",
+          "skallingen_zos_m": -0.9127391491190374,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-12T18:30:00+02:00",
+          "car_from_hm": "18:30",
+          "window_min_zos_m": -1.2771538461538463,
+          "window_max_zos_m": 0.4786923076923077
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-12]]"
+      }
+    },
+    {
+      "date": "2026-10-13",
+      "date_label": "Tir 13/10",
+      "date_label_long": "Tirsdag 13/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-13T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-13T16:00:00Z",
+        "B50": 11.477834247957375,
+        "A25": 20.6546281627641,
+        "score_b50_a25": 28.448447820647846,
+        "score_w32": 6.223097960766716,
+        "score_p32": 20.44732187109064,
+        "diagnostics": {
+          "bw": 0.0543364802711208,
+          "bh": 0.12469795373971364,
+          "bc": 0.4548345702665613,
+          "bi": 0.03853225678760979,
+          "bj": 0.009576375404766007,
+          "bp": 0.25709939534202536,
+          "aw": 0.28724057971014494,
+          "ah": 0.24905357513799806,
+          "ac": 0.455144011326551,
+          "ai": 0.12931320174347072,
+          "aj": 0.05295178556952288,
+          "ap": 0.007088131280071201,
+          "w32_longest_hours": 7,
+          "w32_factor": 0.21875,
+          "p32_longest_hours": 9,
+          "p32_preserve_factor": 0.71875,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-13T18:00:00+02:00",
+          "end": "2026-10-14T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-13T22:00:00+02:00",
+          "time_hm": "22:00",
+          "skallingen_zos_m": -0.5368083369144822,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-13T19:30:00+02:00",
+          "car_from_hm": "19:30",
+          "window_min_zos_m": -0.6914615384615386,
+          "window_max_zos_m": 0.555923076923077
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-13]]"
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "date_label": "Ons 14/10",
+      "date_label_long": "Onsdag 14/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-14T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-14T16:00:00Z",
+        "B50": 13.745186585537269,
+        "A25": 11.386465472807103,
+        "score_b50_a25": 18.781091096821378,
+        "score_w32": 5.86909096775668,
+        "score_p32": 9.977454645186357,
+        "diagnostics": {
+          "bw": 0.08486914387154042,
+          "bh": 0.16096731394798355,
+          "bc": 0.4655676149832251,
+          "bi": 0.05583089414795729,
+          "bj": 0.01653816819563331,
+          "bp": 0.24078336536598918,
+          "aw": 0.00431159420289855,
+          "ah": 0.13453752104497815,
+          "ac": 0.4991348992977056,
+          "ai": 0.042136683924969956,
+          "aj": 0.0004803199797373606,
+          "ap": 0.2630158364958352,
+          "w32_longest_hours": 10,
+          "w32_factor": 0.3125,
+          "p32_longest_hours": 15,
+          "p32_preserve_factor": 0.53125,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-14T18:00:00+02:00",
+          "end": "2026-10-15T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-14T22:45:00+02:00",
+          "time_hm": "22:45",
+          "skallingen_zos_m": -0.6852032660077352,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-14T19:45:00+02:00",
+          "car_from_hm": "19:45",
+          "window_min_zos_m": -0.9758461538461538,
+          "window_max_zos_m": 0.7776153846153846
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-14]]"
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "date_label": "Tor 15/10",
+      "date_label_long": "Torsdag 15/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-15T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-15T16:00:00Z",
+        "B50": 14.840230667533971,
+        "A25": 18.628476307848853,
+        "score_b50_a25": 33.17410624718023,
+        "score_w32": 10.36690820224382,
+        "score_p32": 15.55036230336573,
+        "diagnostics": {
+          "bw": 0.08091418542725734,
+          "bh": 0.19855172788351724,
+          "bc": 0.47174212478194527,
+          "bi": 0.0623607195072224,
+          "bj": 0.017470917627046834,
+          "bp": 0.20637100093242494,
+          "aw": 0.28891642512077287,
+          "ah": 0.1612007939244273,
+          "ac": 0.5144551193252416,
+          "ai": 0.13114113643624065,
+          "aj": 0.04872631644523564,
+          "ap": 0.07096240431812557,
+          "w32_longest_hours": 10,
+          "w32_factor": 0.3125,
+          "p32_longest_hours": 17,
+          "p32_preserve_factor": 0.46875,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-15T18:00:00+02:00",
+          "end": "2026-10-16T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-15T23:15:00+02:00",
+          "time_hm": "23:15",
+          "skallingen_zos_m": -0.3462776106574989,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-15T21:00:00+02:00",
+          "car_from_hm": "21:00",
+          "window_min_zos_m": -0.5716923076923076,
+          "window_max_zos_m": 0.8993076923076924
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-15]]"
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "date_label": "Fre 16/10",
+      "date_label_long": "Fredag 16/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-16T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-16T16:00:00Z",
+        "B50": 17.671312565415942,
+        "A25": 19.870971395617737,
+        "score_b50_a25": 42.137537581248054,
+        "score_w32": 32.91995123535004,
+        "score_p32": 39.50394148242005,
+        "diagnostics": {
+          "bw": 0.11030379246348747,
+          "bh": 0.23960934825837452,
+          "bc": 0.48616903950935614,
+          "bi": 0.07325826103850558,
+          "bj": 0.020339631973120838,
+          "bp": 0.1321146481384246,
+          "aw": 0.2790217391304348,
+          "ah": 0.2169821902791759,
+          "ac": 0.44995405595272575,
+          "ai": 0.16812795784504156,
+          "aj": 0.07658864729351487,
+          "ap": 0.01753174726743479,
+          "w32_longest_hours": 25,
+          "w32_factor": 0.78125,
+          "p32_longest_hours": 2,
+          "p32_preserve_factor": 0.9375,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-16T18:00:00+02:00",
+          "end": "2026-10-17T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-16T23:45:00+02:00",
+          "time_hm": "23:45",
+          "skallingen_zos_m": -0.6522612806188225,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-16T20:15:00+02:00",
+          "car_from_hm": "20:15",
+          "window_min_zos_m": -0.9715384615384616,
+          "window_max_zos_m": 0.531
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-16]]"
+      }
+    },
+    {
+      "date": "2026-10-17",
+      "date_label": "Lør 17/10",
+      "date_label_long": "Lørdag 17/10/2026",
+      "models": {
+        "evaluation_time_local": "2026-10-17T18:00:00+02:00",
+        "evaluation_time_utc": "2026-10-17T16:00:00Z",
+        "B50": 18.646529190396034,
+        "A25": 12.820055137109884,
+        "score_b50_a25": 28.685943880392728,
+        "score_w32": 22.41089365655682,
+        "score_p32": 8.964357462622727,
+        "diagnostics": {
+          "bw": 0.1396973775518438,
+          "bh": 0.24176580876874212,
+          "bc": 0.4731509042283772,
+          "bi": 0.083692084935706,
+          "bj": 0.028481944215871843,
+          "bp": 0.1232811463395732,
+          "aw": 0.0,
+          "ah": 0.21004044125502289,
+          "ac": 0.5285115622693662,
+          "ai": 0.0048607270158708025,
+          "aj": 0.0,
+          "ap": 0.5164002122366692,
+          "w32_longest_hours": 25,
+          "w32_factor": 0.78125,
+          "p32_longest_hours": 22,
+          "p32_preserve_factor": 0.3125,
+          "hourly_points_expected": 168,
+          "hourly_points_with_wind": 168,
+          "hourly_points_with_waves": 168,
+          "hourly_points_with_current": 168
+        }
+      },
+      "recommendation": {
+        "code": "HJEMME",
+        "label": "🔴 Bliv hjemme",
+        "symbol": "🔴"
+      },
+      "tide_access": {
+        "search_window_local": {
+          "start": "2026-10-17T18:00:00+02:00",
+          "end": "2026-10-18T02:00:00+02:00"
+        },
+        "low_tide": {
+          "time_local": "2026-10-18T00:30:00+02:00",
+          "time_hm": "00:30",
+          "skallingen_zos_m": -0.7263927804039536,
+          "method": "minimum Skallingen Copernicus-zos i 18:00-02:00-vinduet"
+        },
+        "access": {
+          "symbol": "🚗",
+          "code": "CAR",
+          "threshold_source": "Copernicus Esbjerg zos",
+          "threshold_m": 0.35,
+          "rule": "🚗 hvis zos < 0.35 m mindst én gang i 18:00-02:00; ellers 🚤",
+          "car_from_local": "2026-10-17T18:00:00+02:00",
+          "car_from_hm": "18:00",
+          "window_min_zos_m": -0.9768461538461538,
+          "window_max_zos_m": 0.2363846153846154
+        }
+      },
+      "assistant_fields": {
+        "comment_token": "[[AI_KOMMENTAR_2026-10-17]]"
+      }
+    }
+  ],
+  "weather_course": {
+    "anchor_utc": "2026-10-11T21:00:00Z",
+    "rows": [
+      {
+        "parameter": "Vind",
+        "recent_72h": "V, 0.3–13.3 m/s",
+        "next_48h": "SØ, 1.4–8.8 m/s",
+        "assessment": "[[AI_VEJR_VIND]]"
+      },
+      {
+        "parameter": "Bølger",
+        "recent_72h": "1.2–2.6 m",
+        "next_48h": "0.5–2.1 m",
+        "assessment": "[[AI_VEJR_BOELGER]]"
+      },
+      {
+        "parameter": "Strøm",
+        "recent_72h": "nordgående, middel +0.06 m/s",
+        "next_48h": "nordgående, middel +0.06 m/s",
+        "assessment": "[[AI_VEJR_STROEM]]"
+      },
+      {
+        "parameter": "NW-påvirkning",
+        "recent_72h": "middel 0.29, max 0.87",
+        "next_48h": "middel 0.08, max 0.36",
+        "assessment": "[[AI_VEJR_NW]]"
+      }
+    ]
+  },
+  "report_contract": {
+    "report_version": "1.2",
+    "title": "🌊 RAVPROGNOSE – SKALLINGEN",
+    "mandatory_sections_in_order": [
+      "📊 1. PROGNOSE",
+      "🏆 2. BEDSTE TIDSPUNKT",
+      "🌬️ 3. VEJRFORLØB"
+    ],
+    "forecast_columns_in_order": [
+      "Dato",
+      "Score / W32 / P32",
+      "Anbefaling",
+      "Lavvande",
+      "Access",
+      "Kommentar"
+    ],
+    "fixed_rules": {
+      "recommendation_source": "ONLY score_b50_a25",
+      "koer": "score_b50_a25 >= 70",
+      "afvent": "60 <= score_b50_a25 < 70",
+      "bliv_hjemme": "score_b50_a25 < 60",
+      "w32_p32_never_change_recommendation": true,
+      "score_order": "B50+A25 / W32 / P32",
+      "hunt_window_local": "18:00-02:00 Europe/Copenhagen",
+      "low_tide": "minimum Skallingen Copernicus-zos inside hunt window",
+      "access": "🚗 if Esbjerg Copernicus-zos < 0.35 m at least once inside hunt window; else 🚤"
+    },
+    "assistant_may_fill_only": {
+      "forecast_comment": "Replace each [[AI_KOMMENTAR_*]] token. Use concise '**For:** ...<br>**Imod:** ...'. Base it on the supplied raw/model data; do not change deterministic columns.",
+      "best_time": "Replace [[AI_BEDSTE_TIDSRUM]]. Choose only inside 18:00-02:00. Prefer falling water / approaching low tide and deposition after prior mobilization; respect access data.",
+      "best_reason": "Replace [[AI_BEDSTE_BEGRUNDELSE]] with a short data-based reason.",
+      "weather_assessment": "Replace [[AI_VEJR_*]] with only one of: ✅ Gunstig, 🟡 Neutral, ❌ Ugunstig, ⚠️ Usikker."
+    },
+    "assistant_must_not": [
+      "change table column order",
+      "change B50+A25/W32/P32 scores",
+      "change Kør/Afvent/Bliv hjemme",
+      "change low tide time",
+      "change access symbol",
+      "add a model-control section",
+      "omit any mandatory section"
+    ]
+  },
+  "report_markdown_template": "# 🌊 RAVPROGNOSE – SKALLINGEN\n\n**Rapportversion:** 1.2  \n**Opdateret:** 11/10/2026 kl. 23:43  \n**Jagtvindue:** 18:00–02:00\n\n## 📊 1. PROGNOSE\n\n| Dato | Score / W32 / P32 | Anbefaling | Lavvande | Access | Kommentar |\n|---|---:|---|---:|:---:|---|\n| Søn 11/10 | 24 / 4 / 18 | 🔴 Bliv hjemme | 21:00 | 🚗 | [[AI_KOMMENTAR_2026-10-11]] |\n| Man 12/10 | 35 / 5 / 19 | 🔴 Bliv hjemme | 21:45 | 🚗 | [[AI_KOMMENTAR_2026-10-12]] |\n| Tir 13/10 | 28 / 6 / 20 | 🔴 Bliv hjemme | 22:00 | 🚗 | [[AI_KOMMENTAR_2026-10-13]] |\n| Ons 14/10 | 19 / 6 / 10 | 🔴 Bliv hjemme | 22:45 | 🚗 | [[AI_KOMMENTAR_2026-10-14]] |\n| Tor 15/10 | 33 / 10 / 16 | 🔴 Bliv hjemme | 23:15 | 🚗 | [[AI_KOMMENTAR_2026-10-15]] |\n| Fre 16/10 | 42 / 33 / 40 | 🔴 Bliv hjemme | 23:45 | 🚗 | [[AI_KOMMENTAR_2026-10-16]] |\n| Lør 17/10 | 29 / 22 / 9 | 🔴 Bliv hjemme | 00:30 | 🚗 | [[AI_KOMMENTAR_2026-10-17]] |\n\n**Fast anbefalingsregel:** B50+A25 ≥70 = 🟢 Kør; 60–69,99 = 🟡 Afvent; <60 = 🔴 Bliv hjemme. W32 og P32 påvirker ikke anbefalingen.\n\n## 🏆 2. BEDSTE TIDSPUNKT\n\n**Bedste dag:** Fredag 16/10/2026  \n**B50+A25:** 42 point  \n**Anbefaling:** 🔴 BLIV HJEMME\n\n**Bedste tidsrum:** [[AI_BEDSTE_TIDSRUM]]\n\n**Begrundelse:** [[AI_BEDSTE_BEGRUNDELSE]]\n\n## 🌬️ 3. VEJRFORLØB\n\n| Parameter | Seneste 72 timer | Næste 48 timer | Vurdering |\n|---|---|---|---|\n| Vind | V, 0.3–13.3 m/s | SØ, 1.4–8.8 m/s | [[AI_VEJR_VIND]] |\n| Bølger | 1.2–2.6 m | 0.5–2.1 m | [[AI_VEJR_BOELGER]] |\n| Strøm | nordgående, middel +0.06 m/s | nordgående, middel +0.06 m/s | [[AI_VEJR_STROEM]] |\n| NW-påvirkning | middel 0.29, max 0.87 | middel 0.08, max 0.36 | [[AI_VEJR_NW]] |\n",
   "data": {
     "current": {
       "uo": [
@@ -26882,8 +27457,8 @@
       },
       {
         "time_utc": "2026-10-11T08:00:00Z",
-        "speed_ms": 3.88,
-        "direction_from_deg": 35.0,
+        "speed_ms": 3.74,
+        "direction_from_deg": 34.0,
         "gust_ms": 7.1,
         "kind": "forecast"
       },
@@ -26896,29 +27471,29 @@
       },
       {
         "time_utc": "2026-10-11T10:00:00Z",
-        "speed_ms": 3.77,
-        "direction_from_deg": 11.0,
+        "speed_ms": 3.91,
+        "direction_from_deg": 13.0,
         "gust_ms": 7.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T11:00:00Z",
-        "speed_ms": 4.0,
-        "direction_from_deg": 359.0,
+        "speed_ms": 4.21,
+        "direction_from_deg": 4.0,
         "gust_ms": 8.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T12:00:00Z",
-        "speed_ms": 4.47,
-        "direction_from_deg": 350.0,
+        "speed_ms": 4.61,
+        "direction_from_deg": 356.0,
         "gust_ms": 9.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T13:00:00Z",
-        "speed_ms": 5.12,
-        "direction_from_deg": 348.0,
+        "speed_ms": 5.16,
+        "direction_from_deg": 351.0,
         "gust_ms": 10.4,
         "kind": "forecast"
       },
@@ -26926,1078 +27501,1078 @@
         "time_utc": "2026-10-11T14:00:00Z",
         "speed_ms": 5.73,
         "direction_from_deg": 348.0,
-        "gust_ms": 11.7,
+        "gust_ms": 11.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T15:00:00Z",
-        "speed_ms": 5.92,
-        "direction_from_deg": 348.0,
-        "gust_ms": 12.2,
+        "speed_ms": 5.85,
+        "direction_from_deg": 347.0,
+        "gust_ms": 11.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T16:00:00Z",
-        "speed_ms": 5.47,
-        "direction_from_deg": 351.0,
-        "gust_ms": 11.3,
+        "speed_ms": 5.3,
+        "direction_from_deg": 349.0,
+        "gust_ms": 10.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T17:00:00Z",
-        "speed_ms": 4.63,
+        "speed_ms": 4.43,
         "direction_from_deg": 354.0,
-        "gust_ms": 9.7,
+        "gust_ms": 8.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T18:00:00Z",
-        "speed_ms": 3.91,
-        "direction_from_deg": 356.0,
-        "gust_ms": 8.2,
+        "speed_ms": 3.61,
+        "direction_from_deg": 357.0,
+        "gust_ms": 7.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T19:00:00Z",
-        "speed_ms": 3.34,
+        "speed_ms": 3.14,
         "direction_from_deg": 351.0,
-        "gust_ms": 7.0,
+        "gust_ms": 6.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T20:00:00Z",
-        "speed_ms": 2.85,
-        "direction_from_deg": 342.0,
-        "gust_ms": 5.9,
+        "speed_ms": 2.92,
+        "direction_from_deg": 338.0,
+        "gust_ms": 5.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T21:00:00Z",
-        "speed_ms": 2.55,
-        "direction_from_deg": 334.0,
+        "speed_ms": 2.73,
+        "direction_from_deg": 332.0,
         "gust_ms": 5.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T22:00:00Z",
-        "speed_ms": 2.64,
-        "direction_from_deg": 335.0,
-        "gust_ms": 4.9,
+        "speed_ms": 2.21,
+        "direction_from_deg": 342.0,
+        "gust_ms": 4.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-11T23:00:00Z",
-        "speed_ms": 2.88,
-        "direction_from_deg": 340.0,
-        "gust_ms": 5.1,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T00:00:00Z",
-        "speed_ms": 2.91,
-        "direction_from_deg": 344.0,
-        "gust_ms": 5.1,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T01:00:00Z",
-        "speed_ms": 2.55,
-        "direction_from_deg": 349.0,
-        "gust_ms": 4.6,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T02:00:00Z",
-        "speed_ms": 1.91,
-        "direction_from_deg": 354.0,
+        "speed_ms": 1.92,
+        "direction_from_deg": 9.0,
         "gust_ms": 3.9,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-12T03:00:00Z",
-        "speed_ms": 1.32,
-        "direction_from_deg": 9.0,
-        "gust_ms": 3.4,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T04:00:00Z",
-        "speed_ms": 0.92,
-        "direction_from_deg": 49.0,
-        "gust_ms": 3.1,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T05:00:00Z",
-        "speed_ms": 1.32,
-        "direction_from_deg": 99.0,
-        "gust_ms": 3.0,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T06:00:00Z",
-        "speed_ms": 1.88,
-        "direction_from_deg": 115.0,
-        "gust_ms": 3.1,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-12T07:00:00Z",
-        "speed_ms": 2.16,
-        "direction_from_deg": 124.0,
+        "time_utc": "2026-10-12T00:00:00Z",
+        "speed_ms": 2.06,
+        "direction_from_deg": 29.0,
         "gust_ms": 3.5,
         "kind": "forecast"
       },
       {
+        "time_utc": "2026-10-12T01:00:00Z",
+        "speed_ms": 2.15,
+        "direction_from_deg": 28.0,
+        "gust_ms": 3.5,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T02:00:00Z",
+        "speed_ms": 2.21,
+        "direction_from_deg": 18.0,
+        "gust_ms": 3.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T03:00:00Z",
+        "speed_ms": 2.09,
+        "direction_from_deg": 17.0,
+        "gust_ms": 3.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T04:00:00Z",
+        "speed_ms": 1.66,
+        "direction_from_deg": 33.0,
+        "gust_ms": 3.2,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T05:00:00Z",
+        "speed_ms": 1.39,
+        "direction_from_deg": 69.0,
+        "gust_ms": 2.7,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T06:00:00Z",
+        "speed_ms": 1.53,
+        "direction_from_deg": 101.0,
+        "gust_ms": 2.5,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T07:00:00Z",
+        "speed_ms": 1.7,
+        "direction_from_deg": 118.0,
+        "gust_ms": 2.9,
+        "kind": "forecast"
+      },
+      {
         "time_utc": "2026-10-12T08:00:00Z",
-        "speed_ms": 2.13,
-        "direction_from_deg": 131.0,
-        "gust_ms": 4.2,
+        "speed_ms": 1.7,
+        "direction_from_deg": 130.0,
+        "gust_ms": 3.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T09:00:00Z",
-        "speed_ms": 2.13,
-        "direction_from_deg": 139.0,
-        "gust_ms": 4.8,
+        "speed_ms": 1.72,
+        "direction_from_deg": 144.0,
+        "gust_ms": 4.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T10:00:00Z",
-        "speed_ms": 2.19,
-        "direction_from_deg": 156.0,
-        "gust_ms": 5.3,
+        "speed_ms": 1.65,
+        "direction_from_deg": 166.0,
+        "gust_ms": 4.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T11:00:00Z",
-        "speed_ms": 2.43,
-        "direction_from_deg": 171.0,
-        "gust_ms": 5.7,
+        "speed_ms": 1.82,
+        "direction_from_deg": 189.0,
+        "gust_ms": 4.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T12:00:00Z",
-        "speed_ms": 2.7,
-        "direction_from_deg": 180.0,
-        "gust_ms": 6.0,
+        "speed_ms": 2.12,
+        "direction_from_deg": 199.0,
+        "gust_ms": 5.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T13:00:00Z",
-        "speed_ms": 2.9,
-        "direction_from_deg": 180.0,
-        "gust_ms": 6.2,
+        "speed_ms": 2.38,
+        "direction_from_deg": 195.0,
+        "gust_ms": 5.4,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T14:00:00Z",
-        "speed_ms": 3.01,
-        "direction_from_deg": 174.0,
-        "gust_ms": 6.2,
+        "speed_ms": 2.72,
+        "direction_from_deg": 186.0,
+        "gust_ms": 5.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T15:00:00Z",
-        "speed_ms": 3.08,
-        "direction_from_deg": 167.0,
-        "gust_ms": 6.2,
+        "speed_ms": 2.91,
+        "direction_from_deg": 176.0,
+        "gust_ms": 6.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T16:00:00Z",
-        "speed_ms": 3.04,
-        "direction_from_deg": 153.0,
-        "gust_ms": 6.1,
+        "speed_ms": 2.85,
+        "direction_from_deg": 162.0,
+        "gust_ms": 5.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T17:00:00Z",
-        "speed_ms": 3.18,
-        "direction_from_deg": 134.0,
-        "gust_ms": 6.0,
+        "speed_ms": 2.86,
+        "direction_from_deg": 144.0,
+        "gust_ms": 5.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T18:00:00Z",
-        "speed_ms": 3.55,
-        "direction_from_deg": 122.0,
-        "gust_ms": 6.0,
+        "speed_ms": 3.11,
+        "direction_from_deg": 132.0,
+        "gust_ms": 5.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T19:00:00Z",
-        "speed_ms": 3.83,
-        "direction_from_deg": 123.0,
-        "gust_ms": 6.4,
+        "speed_ms": 3.48,
+        "direction_from_deg": 129.0,
+        "gust_ms": 5.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T20:00:00Z",
-        "speed_ms": 4.05,
-        "direction_from_deg": 130.0,
-        "gust_ms": 6.9,
+        "speed_ms": 3.83,
+        "direction_from_deg": 131.0,
+        "gust_ms": 6.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-12T21:00:00Z",
-        "speed_ms": 4.24,
+        "speed_ms": 4.1,
+        "direction_from_deg": 133.0,
+        "gust_ms": 6.9,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-12T22:00:00Z",
+        "speed_ms": 4.38,
         "direction_from_deg": 135.0,
         "gust_ms": 7.4,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-12T22:00:00Z",
-        "speed_ms": 4.46,
-        "direction_from_deg": 138.0,
-        "gust_ms": 7.8,
-        "kind": "forecast"
-      },
-      {
         "time_utc": "2026-10-12T23:00:00Z",
-        "speed_ms": 4.62,
-        "direction_from_deg": 141.0,
-        "gust_ms": 8.1,
+        "speed_ms": 4.6,
+        "direction_from_deg": 138.0,
+        "gust_ms": 7.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T00:00:00Z",
-        "speed_ms": 4.84,
-        "direction_from_deg": 142.0,
+        "speed_ms": 4.89,
+        "direction_from_deg": 139.0,
         "gust_ms": 8.4,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T01:00:00Z",
-        "speed_ms": 5.04,
-        "direction_from_deg": 141.0,
-        "gust_ms": 8.7,
+        "speed_ms": 5.11,
+        "direction_from_deg": 140.0,
+        "gust_ms": 8.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T02:00:00Z",
-        "speed_ms": 5.24,
-        "direction_from_deg": 138.0,
-        "gust_ms": 9.0,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-13T03:00:00Z",
-        "speed_ms": 5.45,
-        "direction_from_deg": 137.0,
+        "speed_ms": 5.32,
+        "direction_from_deg": 139.0,
         "gust_ms": 9.4,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-13T04:00:00Z",
-        "speed_ms": 5.81,
+        "time_utc": "2026-10-13T03:00:00Z",
+        "speed_ms": 5.53,
         "direction_from_deg": 139.0,
-        "gust_ms": 10.1,
+        "gust_ms": 9.9,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-13T04:00:00Z",
+        "speed_ms": 5.84,
+        "direction_from_deg": 142.0,
+        "gust_ms": 10.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T05:00:00Z",
-        "speed_ms": 6.2,
-        "direction_from_deg": 142.0,
-        "gust_ms": 10.9,
+        "speed_ms": 6.24,
+        "direction_from_deg": 145.0,
+        "gust_ms": 11.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T06:00:00Z",
         "speed_ms": 6.52,
-        "direction_from_deg": 144.0,
-        "gust_ms": 11.7,
+        "direction_from_deg": 148.0,
+        "gust_ms": 11.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T07:00:00Z",
-        "speed_ms": 6.55,
-        "direction_from_deg": 146.0,
-        "gust_ms": 12.3,
+        "speed_ms": 6.86,
+        "direction_from_deg": 149.0,
+        "gust_ms": 12.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T08:00:00Z",
-        "speed_ms": 6.52,
-        "direction_from_deg": 148.0,
-        "gust_ms": 12.8,
+        "speed_ms": 7.26,
+        "direction_from_deg": 150.0,
+        "gust_ms": 12.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T09:00:00Z",
-        "speed_ms": 6.5,
-        "direction_from_deg": 149.0,
-        "gust_ms": 13.2,
+        "speed_ms": 7.34,
+        "direction_from_deg": 152.0,
+        "gust_ms": 13.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T10:00:00Z",
-        "speed_ms": 6.75,
-        "direction_from_deg": 153.0,
-        "gust_ms": 13.4,
+        "speed_ms": 7.16,
+        "direction_from_deg": 155.0,
+        "gust_ms": 13.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T11:00:00Z",
-        "speed_ms": 7.21,
-        "direction_from_deg": 156.0,
-        "gust_ms": 13.4,
+        "speed_ms": 6.74,
+        "direction_from_deg": 159.0,
+        "gust_ms": 12.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T12:00:00Z",
-        "speed_ms": 7.43,
-        "direction_from_deg": 160.0,
-        "gust_ms": 13.4,
+        "speed_ms": 6.53,
+        "direction_from_deg": 165.0,
+        "gust_ms": 12.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T13:00:00Z",
-        "speed_ms": 7.64,
-        "direction_from_deg": 166.0,
-        "gust_ms": 13.4,
+        "speed_ms": 7.2,
+        "direction_from_deg": 170.0,
+        "gust_ms": 13.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T14:00:00Z",
-        "speed_ms": 7.67,
-        "direction_from_deg": 173.0,
-        "gust_ms": 13.4,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-13T15:00:00Z",
-        "speed_ms": 7.32,
-        "direction_from_deg": 184.0,
+        "speed_ms": 8.22,
+        "direction_from_deg": 177.0,
         "gust_ms": 13.7,
         "kind": "forecast"
       },
       {
+        "time_utc": "2026-10-13T15:00:00Z",
+        "speed_ms": 8.03,
+        "direction_from_deg": 185.0,
+        "gust_ms": 14.4,
+        "kind": "forecast"
+      },
+      {
         "time_utc": "2026-10-13T16:00:00Z",
-        "speed_ms": 6.76,
-        "direction_from_deg": 209.0,
-        "gust_ms": 14.6,
+        "speed_ms": 6.24,
+        "direction_from_deg": 212.0,
+        "gust_ms": 15.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T17:00:00Z",
-        "speed_ms": 7.75,
-        "direction_from_deg": 240.0,
-        "gust_ms": 15.9,
+        "speed_ms": 6.65,
+        "direction_from_deg": 258.0,
+        "gust_ms": 16.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T18:00:00Z",
-        "speed_ms": 9.34,
-        "direction_from_deg": 257.0,
+        "speed_ms": 8.7,
+        "direction_from_deg": 279.0,
         "gust_ms": 16.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T19:00:00Z",
-        "speed_ms": 9.54,
-        "direction_from_deg": 265.0,
-        "gust_ms": 16.6,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-13T20:00:00Z",
-        "speed_ms": 8.8,
-        "direction_from_deg": 270.0,
-        "gust_ms": 16.1,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-13T21:00:00Z",
-        "speed_ms": 8.33,
-        "direction_from_deg": 275.0,
+        "speed_ms": 8.85,
+        "direction_from_deg": 280.0,
         "gust_ms": 15.8,
         "kind": "forecast"
       },
       {
+        "time_utc": "2026-10-13T20:00:00Z",
+        "speed_ms": 7.64,
+        "direction_from_deg": 276.0,
+        "gust_ms": 14.2,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-13T21:00:00Z",
+        "speed_ms": 7.01,
+        "direction_from_deg": 272.0,
+        "gust_ms": 13.3,
+        "kind": "forecast"
+      },
+      {
         "time_utc": "2026-10-13T22:00:00Z",
-        "speed_ms": 8.57,
-        "direction_from_deg": 277.0,
-        "gust_ms": 16.0,
+        "speed_ms": 7.42,
+        "direction_from_deg": 275.0,
+        "gust_ms": 13.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-13T23:00:00Z",
-        "speed_ms": 8.88,
+        "speed_ms": 8.29,
         "direction_from_deg": 278.0,
-        "gust_ms": 16.4,
+        "gust_ms": 15.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-14T00:00:00Z",
-        "speed_ms": 9.01,
-        "direction_from_deg": 279.0,
-        "gust_ms": 16.6,
+        "speed_ms": 8.79,
+        "direction_from_deg": 282.0,
+        "gust_ms": 15.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-14T01:00:00Z",
-        "speed_ms": 8.69,
-        "direction_from_deg": 282.0,
-        "gust_ms": 16.3,
+        "speed_ms": 8.61,
+        "direction_from_deg": 285.0,
+        "gust_ms": 15.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-14T02:00:00Z",
-        "speed_ms": 8.23,
-        "direction_from_deg": 286.0,
-        "gust_ms": 15.9,
+        "speed_ms": 8.07,
+        "direction_from_deg": 290.0,
+        "gust_ms": 15.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-14T03:00:00Z",
-        "speed_ms": 7.91,
-        "direction_from_deg": 291.0,
-        "gust_ms": 15.4,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T04:00:00Z",
-        "speed_ms": 7.79,
+        "speed_ms": 7.66,
         "direction_from_deg": 294.0,
-        "gust_ms": 15.1,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T05:00:00Z",
-        "speed_ms": 7.78,
-        "direction_from_deg": 298.0,
-        "gust_ms": 14.8,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T06:00:00Z",
-        "speed_ms": 7.57,
-        "direction_from_deg": 299.0,
         "gust_ms": 14.4,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-14T07:00:00Z",
-        "speed_ms": 7.07,
-        "direction_from_deg": 299.0,
-        "gust_ms": 13.9,
+        "time_utc": "2026-10-14T04:00:00Z",
+        "speed_ms": 7.38,
+        "direction_from_deg": 298.0,
+        "gust_ms": 14.0,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-14T08:00:00Z",
-        "speed_ms": 6.4,
-        "direction_from_deg": 295.0,
+        "time_utc": "2026-10-14T05:00:00Z",
+        "speed_ms": 7.19,
+        "direction_from_deg": 302.0,
+        "gust_ms": 13.7,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T06:00:00Z",
+        "speed_ms": 6.99,
+        "direction_from_deg": 304.0,
+        "gust_ms": 13.4,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T07:00:00Z",
+        "speed_ms": 6.74,
+        "direction_from_deg": 302.0,
         "gust_ms": 13.2,
         "kind": "forecast"
       },
       {
+        "time_utc": "2026-10-14T08:00:00Z",
+        "speed_ms": 6.53,
+        "direction_from_deg": 297.0,
+        "gust_ms": 13.0,
+        "kind": "forecast"
+      },
+      {
         "time_utc": "2026-10-14T09:00:00Z",
-        "speed_ms": 5.95,
-        "direction_from_deg": 290.0,
+        "speed_ms": 6.24,
+        "direction_from_deg": 292.0,
         "gust_ms": 12.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-14T10:00:00Z",
-        "speed_ms": 5.81,
-        "direction_from_deg": 281.0,
-        "gust_ms": 12.4,
+        "speed_ms": 5.99,
+        "direction_from_deg": 285.0,
+        "gust_ms": 12.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-14T11:00:00Z",
-        "speed_ms": 6.0,
-        "direction_from_deg": 271.0,
-        "gust_ms": 12.2,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T12:00:00Z",
-        "speed_ms": 6.15,
-        "direction_from_deg": 263.0,
+        "speed_ms": 5.74,
+        "direction_from_deg": 277.0,
         "gust_ms": 11.9,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-14T13:00:00Z",
-        "speed_ms": 5.94,
-        "direction_from_deg": 257.0,
-        "gust_ms": 11.6,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T14:00:00Z",
-        "speed_ms": 5.57,
-        "direction_from_deg": 252.0,
-        "gust_ms": 11.2,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T15:00:00Z",
-        "speed_ms": 5.15,
-        "direction_from_deg": 246.0,
-        "gust_ms": 10.6,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T16:00:00Z",
-        "speed_ms": 4.77,
-        "direction_from_deg": 237.0,
-        "gust_ms": 9.5,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T17:00:00Z",
-        "speed_ms": 4.46,
-        "direction_from_deg": 228.0,
-        "gust_ms": 8.3,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T18:00:00Z",
-        "speed_ms": 4.42,
-        "direction_from_deg": 218.0,
-        "gust_ms": 7.6,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T19:00:00Z",
-        "speed_ms": 4.66,
-        "direction_from_deg": 211.0,
-        "gust_ms": 7.8,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T20:00:00Z",
-        "speed_ms": 5.05,
-        "direction_from_deg": 207.0,
-        "gust_ms": 8.6,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T21:00:00Z",
-        "speed_ms": 5.46,
-        "direction_from_deg": 206.0,
-        "gust_ms": 9.4,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T22:00:00Z",
-        "speed_ms": 5.64,
-        "direction_from_deg": 207.0,
-        "gust_ms": 10.2,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-14T23:00:00Z",
-        "speed_ms": 5.83,
-        "direction_from_deg": 211.0,
-        "gust_ms": 11.0,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-15T00:00:00Z",
-        "speed_ms": 5.96,
-        "direction_from_deg": 215.0,
+        "time_utc": "2026-10-14T12:00:00Z",
+        "speed_ms": 5.5,
+        "direction_from_deg": 269.0,
         "gust_ms": 11.4,
         "kind": "forecast"
       },
       {
-        "time_utc": "2026-10-15T01:00:00Z",
-        "speed_ms": 6.14,
-        "direction_from_deg": 217.0,
-        "gust_ms": 10.8,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-15T02:00:00Z",
-        "speed_ms": 6.25,
-        "direction_from_deg": 220.0,
-        "gust_ms": 9.8,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-15T03:00:00Z",
-        "speed_ms": 6.3,
-        "direction_from_deg": 222.0,
-        "gust_ms": 9.5,
-        "kind": "forecast"
-      },
-      {
-        "time_utc": "2026-10-15T04:00:00Z",
-        "speed_ms": 6.37,
-        "direction_from_deg": 224.0,
+        "time_utc": "2026-10-14T13:00:00Z",
+        "speed_ms": 5.08,
+        "direction_from_deg": 260.0,
         "gust_ms": 10.9,
         "kind": "forecast"
       },
       {
+        "time_utc": "2026-10-14T14:00:00Z",
+        "speed_ms": 4.68,
+        "direction_from_deg": 250.0,
+        "gust_ms": 10.3,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T15:00:00Z",
+        "speed_ms": 4.39,
+        "direction_from_deg": 240.0,
+        "gust_ms": 9.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T16:00:00Z",
+        "speed_ms": 4.11,
+        "direction_from_deg": 229.0,
+        "gust_ms": 8.5,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T17:00:00Z",
+        "speed_ms": 3.92,
+        "direction_from_deg": 218.0,
+        "gust_ms": 7.2,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T18:00:00Z",
+        "speed_ms": 4.03,
+        "direction_from_deg": 210.0,
+        "gust_ms": 6.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T19:00:00Z",
+        "speed_ms": 4.38,
+        "direction_from_deg": 207.0,
+        "gust_ms": 7.0,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T20:00:00Z",
+        "speed_ms": 4.79,
+        "direction_from_deg": 209.0,
+        "gust_ms": 8.1,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T21:00:00Z",
+        "speed_ms": 5.2,
+        "direction_from_deg": 210.0,
+        "gust_ms": 9.0,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T22:00:00Z",
+        "speed_ms": 5.47,
+        "direction_from_deg": 211.0,
+        "gust_ms": 9.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-14T23:00:00Z",
+        "speed_ms": 5.66,
+        "direction_from_deg": 212.0,
+        "gust_ms": 10.1,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-15T00:00:00Z",
+        "speed_ms": 5.77,
+        "direction_from_deg": 214.0,
+        "gust_ms": 10.5,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-15T01:00:00Z",
+        "speed_ms": 5.74,
+        "direction_from_deg": 215.0,
+        "gust_ms": 10.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-15T02:00:00Z",
+        "speed_ms": 5.66,
+        "direction_from_deg": 216.0,
+        "gust_ms": 10.6,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-15T03:00:00Z",
+        "speed_ms": 5.6,
+        "direction_from_deg": 215.0,
+        "gust_ms": 10.5,
+        "kind": "forecast"
+      },
+      {
+        "time_utc": "2026-10-15T04:00:00Z",
+        "speed_ms": 5.58,
+        "direction_from_deg": 213.0,
+        "gust_ms": 10.6,
+        "kind": "forecast"
+      },
+      {
         "time_utc": "2026-10-15T05:00:00Z",
-        "speed_ms": 6.29,
-        "direction_from_deg": 226.0,
-        "gust_ms": 12.9,
+        "speed_ms": 5.59,
+        "direction_from_deg": 209.0,
+        "gust_ms": 10.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T06:00:00Z",
-        "speed_ms": 6.37,
-        "direction_from_deg": 226.0,
-        "gust_ms": 13.7,
+        "speed_ms": 5.68,
+        "direction_from_deg": 206.0,
+        "gust_ms": 10.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T07:00:00Z",
-        "speed_ms": 6.51,
-        "direction_from_deg": 226.0,
-        "gust_ms": 11.6,
+        "speed_ms": 5.92,
+        "direction_from_deg": 202.0,
+        "gust_ms": 9.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T08:00:00Z",
-        "speed_ms": 6.72,
-        "direction_from_deg": 224.0,
-        "gust_ms": 8.2,
+        "speed_ms": 6.23,
+        "direction_from_deg": 199.0,
+        "gust_ms": 7.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T09:00:00Z",
-        "speed_ms": 6.93,
-        "direction_from_deg": 224.0,
+        "speed_ms": 6.55,
+        "direction_from_deg": 199.0,
         "gust_ms": 6.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T10:00:00Z",
-        "speed_ms": 7.21,
-        "direction_from_deg": 224.0,
-        "gust_ms": 9.3,
+        "speed_ms": 6.75,
+        "direction_from_deg": 205.0,
+        "gust_ms": 9.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T11:00:00Z",
-        "speed_ms": 7.5,
-        "direction_from_deg": 224.0,
-        "gust_ms": 13.7,
+        "speed_ms": 7.05,
+        "direction_from_deg": 215.0,
+        "gust_ms": 13.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T12:00:00Z",
-        "speed_ms": 7.43,
-        "direction_from_deg": 223.0,
+        "speed_ms": 7.25,
+        "direction_from_deg": 219.0,
         "gust_ms": 17.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T13:00:00Z",
-        "speed_ms": 6.94,
-        "direction_from_deg": 221.0,
+        "speed_ms": 6.88,
+        "direction_from_deg": 216.0,
         "gust_ms": 18.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T14:00:00Z",
-        "speed_ms": 6.2,
-        "direction_from_deg": 218.0,
+        "speed_ms": 6.4,
+        "direction_from_deg": 207.0,
         "gust_ms": 18.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T15:00:00Z",
-        "speed_ms": 5.74,
-        "direction_from_deg": 215.0,
+        "speed_ms": 6.17,
+        "direction_from_deg": 200.0,
         "gust_ms": 17.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T16:00:00Z",
-        "speed_ms": 5.69,
-        "direction_from_deg": 214.0,
+        "speed_ms": 6.26,
+        "direction_from_deg": 200.0,
         "gust_ms": 17.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T17:00:00Z",
-        "speed_ms": 5.82,
-        "direction_from_deg": 215.0,
+        "speed_ms": 6.5,
+        "direction_from_deg": 203.0,
         "gust_ms": 17.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T18:00:00Z",
-        "speed_ms": 5.91,
-        "direction_from_deg": 214.0,
+        "speed_ms": 6.71,
+        "direction_from_deg": 205.0,
         "gust_ms": 17.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T19:00:00Z",
-        "speed_ms": 5.83,
-        "direction_from_deg": 211.0,
+        "speed_ms": 6.85,
+        "direction_from_deg": 203.0,
         "gust_ms": 18.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T20:00:00Z",
-        "speed_ms": 5.68,
-        "direction_from_deg": 208.0,
+        "speed_ms": 6.96,
+        "direction_from_deg": 201.0,
         "gust_ms": 18.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T21:00:00Z",
-        "speed_ms": 5.64,
-        "direction_from_deg": 205.0,
+        "speed_ms": 7.12,
+        "direction_from_deg": 200.0,
         "gust_ms": 18.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T22:00:00Z",
-        "speed_ms": 5.55,
-        "direction_from_deg": 203.0,
+        "speed_ms": 7.31,
+        "direction_from_deg": 199.0,
         "gust_ms": 18.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-15T23:00:00Z",
-        "speed_ms": 5.57,
-        "direction_from_deg": 201.0,
+        "speed_ms": 7.43,
+        "direction_from_deg": 200.0,
         "gust_ms": 17.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T00:00:00Z",
-        "speed_ms": 5.66,
-        "direction_from_deg": 201.0,
+        "speed_ms": 7.53,
+        "direction_from_deg": 199.0,
         "gust_ms": 16.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T01:00:00Z",
-        "speed_ms": 6.02,
-        "direction_from_deg": 201.0,
+        "speed_ms": 7.53,
+        "direction_from_deg": 199.0,
         "gust_ms": 16.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T02:00:00Z",
-        "speed_ms": 6.54,
-        "direction_from_deg": 203.0,
+        "speed_ms": 7.53,
+        "direction_from_deg": 199.0,
         "gust_ms": 17.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T03:00:00Z",
-        "speed_ms": 6.84,
-        "direction_from_deg": 205.0,
+        "speed_ms": 7.43,
+        "direction_from_deg": 200.0,
         "gust_ms": 16.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T04:00:00Z",
-        "speed_ms": 6.89,
-        "direction_from_deg": 206.0,
+        "speed_ms": 7.56,
+        "direction_from_deg": 200.0,
         "gust_ms": 14.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T05:00:00Z",
-        "speed_ms": 6.75,
-        "direction_from_deg": 205.0,
+        "speed_ms": 7.69,
+        "direction_from_deg": 201.0,
         "gust_ms": 11.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T06:00:00Z",
-        "speed_ms": 6.53,
+        "speed_ms": 7.29,
         "direction_from_deg": 205.0,
         "gust_ms": 10.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T07:00:00Z",
-        "speed_ms": 6.22,
-        "direction_from_deg": 204.0,
+        "speed_ms": 6.33,
+        "direction_from_deg": 219.0,
         "gust_ms": 11.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T08:00:00Z",
-        "speed_ms": 5.92,
-        "direction_from_deg": 202.0,
+        "speed_ms": 5.77,
+        "direction_from_deg": 244.0,
         "gust_ms": 14.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T09:00:00Z",
-        "speed_ms": 5.66,
-        "direction_from_deg": 201.0,
+        "speed_ms": 5.81,
+        "direction_from_deg": 267.0,
         "gust_ms": 15.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T10:00:00Z",
-        "speed_ms": 5.79,
-        "direction_from_deg": 201.0,
+        "speed_ms": 5.7,
+        "direction_from_deg": 285.0,
         "gust_ms": 15.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T11:00:00Z",
-        "speed_ms": 5.87,
-        "direction_from_deg": 203.0,
+        "speed_ms": 5.55,
+        "direction_from_deg": 304.0,
         "gust_ms": 13.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T12:00:00Z",
-        "speed_ms": 4.96,
-        "direction_from_deg": 208.0,
+        "speed_ms": 5.73,
+        "direction_from_deg": 317.0,
         "gust_ms": 12.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T13:00:00Z",
-        "speed_ms": 2.22,
-        "direction_from_deg": 234.0,
+        "speed_ms": 5.62,
+        "direction_from_deg": 321.0,
         "gust_ms": 12.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T14:00:00Z",
-        "speed_ms": 2.97,
-        "direction_from_deg": 340.0,
+        "speed_ms": 5.26,
+        "direction_from_deg": 321.0,
         "gust_ms": 12.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T15:00:00Z",
-        "speed_ms": 5.83,
-        "direction_from_deg": 354.0,
+        "speed_ms": 4.98,
+        "direction_from_deg": 322.0,
         "gust_ms": 12.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T16:00:00Z",
-        "speed_ms": 6.65,
-        "direction_from_deg": 353.0,
+        "speed_ms": 5.0,
+        "direction_from_deg": 323.0,
         "gust_ms": 11.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T17:00:00Z",
-        "speed_ms": 6.53,
-        "direction_from_deg": 349.0,
+        "speed_ms": 5.02,
+        "direction_from_deg": 325.0,
         "gust_ms": 9.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T18:00:00Z",
-        "speed_ms": 6.21,
-        "direction_from_deg": 345.0,
+        "speed_ms": 4.96,
+        "direction_from_deg": 326.0,
         "gust_ms": 9.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T19:00:00Z",
-        "speed_ms": 5.92,
-        "direction_from_deg": 344.0,
+        "speed_ms": 4.69,
+        "direction_from_deg": 326.0,
         "gust_ms": 10.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T20:00:00Z",
-        "speed_ms": 5.48,
-        "direction_from_deg": 345.0,
+        "speed_ms": 4.27,
+        "direction_from_deg": 327.0,
         "gust_ms": 12.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T21:00:00Z",
-        "speed_ms": 5.39,
-        "direction_from_deg": 345.0,
+        "speed_ms": 4.17,
+        "direction_from_deg": 330.0,
         "gust_ms": 14.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T22:00:00Z",
-        "speed_ms": 5.85,
-        "direction_from_deg": 343.0,
+        "speed_ms": 4.61,
+        "direction_from_deg": 333.0,
         "gust_ms": 14.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-16T23:00:00Z",
-        "speed_ms": 6.64,
-        "direction_from_deg": 342.0,
+        "speed_ms": 5.32,
+        "direction_from_deg": 334.0,
         "gust_ms": 14.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T00:00:00Z",
-        "speed_ms": 7.24,
-        "direction_from_deg": 340.0,
+        "speed_ms": 5.91,
+        "direction_from_deg": 336.0,
         "gust_ms": 14.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T01:00:00Z",
-        "speed_ms": 7.45,
-        "direction_from_deg": 338.0,
+        "speed_ms": 6.04,
+        "direction_from_deg": 336.0,
         "gust_ms": 14.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T02:00:00Z",
-        "speed_ms": 7.43,
-        "direction_from_deg": 336.0,
+        "speed_ms": 6.04,
+        "direction_from_deg": 333.0,
         "gust_ms": 14.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T03:00:00Z",
-        "speed_ms": 7.52,
-        "direction_from_deg": 335.0,
+        "speed_ms": 6.26,
+        "direction_from_deg": 333.0,
         "gust_ms": 14.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T04:00:00Z",
-        "speed_ms": 7.74,
-        "direction_from_deg": 335.0,
+        "speed_ms": 7.03,
+        "direction_from_deg": 336.0,
         "gust_ms": 14.6,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T05:00:00Z",
-        "speed_ms": 7.92,
-        "direction_from_deg": 335.0,
+        "speed_ms": 7.98,
+        "direction_from_deg": 338.0,
         "gust_ms": 14.0,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T06:00:00Z",
-        "speed_ms": 7.84,
-        "direction_from_deg": 337.0,
+        "speed_ms": 8.51,
+        "direction_from_deg": 340.0,
         "gust_ms": 13.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T07:00:00Z",
-        "speed_ms": 7.31,
-        "direction_from_deg": 341.0,
+        "speed_ms": 8.19,
+        "direction_from_deg": 342.0,
         "gust_ms": 13.9,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T08:00:00Z",
-        "speed_ms": 6.63,
-        "direction_from_deg": 349.0,
+        "speed_ms": 7.32,
+        "direction_from_deg": 346.0,
         "gust_ms": 14.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T09:00:00Z",
-        "speed_ms": 6.22,
-        "direction_from_deg": 355.0,
+        "speed_ms": 6.59,
+        "direction_from_deg": 350.0,
         "gust_ms": 14.3,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T10:00:00Z",
-        "speed_ms": 6.2,
-        "direction_from_deg": 359.0,
+        "speed_ms": 6.11,
+        "direction_from_deg": 356.0,
         "gust_ms": 13.8,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T11:00:00Z",
-        "speed_ms": 6.3,
-        "direction_from_deg": 2.0,
+        "speed_ms": 5.81,
+        "direction_from_deg": 4.0,
         "gust_ms": 13.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T12:00:00Z",
-        "speed_ms": 6.31,
-        "direction_from_deg": 3.0,
+        "speed_ms": 5.69,
+        "direction_from_deg": 10.0,
         "gust_ms": 12.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T13:00:00Z",
-        "speed_ms": 6.21,
-        "direction_from_deg": 4.0,
+        "speed_ms": 5.58,
+        "direction_from_deg": 15.0,
         "gust_ms": 12.4,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T14:00:00Z",
-        "speed_ms": 6.11,
-        "direction_from_deg": 3.0,
-        "gust_ms": 12.4,
+        "speed_ms": 5.54,
+        "direction_from_deg": 17.0,
+        "gust_ms": 12.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T15:00:00Z",
-        "speed_ms": 6.01,
-        "direction_from_deg": 3.0,
+        "speed_ms": 5.5,
+        "direction_from_deg": 19.0,
         "gust_ms": 12.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T16:00:00Z",
-        "speed_ms": 5.81,
-        "direction_from_deg": 3.0,
-        "gust_ms": 12.5,
+        "speed_ms": 5.48,
+        "direction_from_deg": 21.0,
+        "gust_ms": 12.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T17:00:00Z",
-        "speed_ms": 5.6,
-        "direction_from_deg": 2.0,
-        "gust_ms": 12.4,
+        "speed_ms": 5.52,
+        "direction_from_deg": 22.0,
+        "gust_ms": 11.5,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T18:00:00Z",
-        "speed_ms": 5.3,
-        "direction_from_deg": 2.0,
-        "gust_ms": 12.3,
+        "speed_ms": 5.46,
+        "direction_from_deg": 24.0,
+        "gust_ms": 11.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T19:00:00Z",
-        "speed_ms": 4.91,
-        "direction_from_deg": 4.0,
-        "gust_ms": 12.0,
+        "speed_ms": 5.41,
+        "direction_from_deg": 25.0,
+        "gust_ms": 11.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T20:00:00Z",
-        "speed_ms": 4.42,
-        "direction_from_deg": 5.0,
-        "gust_ms": 11.6,
+        "speed_ms": 5.23,
+        "direction_from_deg": 26.0,
+        "gust_ms": 11.2,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T21:00:00Z",
-        "speed_ms": 3.93,
-        "direction_from_deg": 7.0,
+        "speed_ms": 5.05,
+        "direction_from_deg": 27.0,
         "gust_ms": 11.1,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T22:00:00Z",
-        "speed_ms": 3.45,
-        "direction_from_deg": 10.0,
-        "gust_ms": 10.6,
+        "speed_ms": 4.88,
+        "direction_from_deg": 28.0,
+        "gust_ms": 10.7,
         "kind": "forecast"
       },
       {
         "time_utc": "2026-10-17T23:00:00Z",
-        "speed_ms": 2.98,
-        "direction_from_deg": 14.0,
-        "gust_ms": 10.0,
+        "speed_ms": 4.74,
+        "direction_from_deg": 28.0,
+        "gust_ms": 10.1,
         "kind": "forecast"
       }
     ]
