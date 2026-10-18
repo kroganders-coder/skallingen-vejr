@@ -1,27 +1,27 @@
 # 🌊 RAVPROGNOSE – SKALLINGEN
 
 **Rapportversion:** 1.2  
-**Opdateret:** 17/10/2026 kl. 22:03  
+**Opdateret:** 18/10/2026 kl. 11:33  
 **Jagtvindue:** 18:00–02:00
 
 ## 📊 1. PROGNOSE
 
 | Dato | Score / W32 / P32 | Anbefaling | Lavvande | Access | Kommentar |
 |---|---:|---|---:|:---:|---|
-| Lør 17/10 | 30 / 27 / 7 | 🔴 Bliv hjemme | 00:30 | 🚗 | [[AI_KOMMENTAR_2026-10-17]] |
-| Søn 18/10 | 36 / 33 / 0 | 🔴 Bliv hjemme | 01:00 | 🚗 | [[AI_KOMMENTAR_2026-10-18]] |
-| Man 19/10 | 48 / 42 / 33 | 🔴 Bliv hjemme | 02:00 | 🚗 | [[AI_KOMMENTAR_2026-10-19]] |
-| Tir 20/10 | 29 / 20 / 29 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-10-20]] |
+| Søn 18/10 | 38 / 34 / 0 | 🔴 Bliv hjemme | 01:15 | 🚗 | [[AI_KOMMENTAR_2026-10-18]] |
+| Man 19/10 | 49 / 43 / 29 | 🔴 Bliv hjemme | 02:00 | 🚗 | [[AI_KOMMENTAR_2026-10-19]] |
+| Tir 20/10 | 28 / 20 / 28 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-10-20]] |
 | Ons 21/10 | 28 / 19 / 28 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-10-21]] |
-| Tor 22/10 | 26 / 6 / 26 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-10-22]] |
-| Fre 23/10 | 19 / 4 / 19 | 🔴 Bliv hjemme | 18:45 | 🚗 | [[AI_KOMMENTAR_2026-10-23]] |
+| Tor 22/10 | 25 / 6 / 25 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-10-22]] |
+| Fre 23/10 | 21 / 1 / 21 | 🔴 Bliv hjemme | 18:30 | 🚗 | [[AI_KOMMENTAR_2026-10-23]] |
+| Lør 24/10 | 24 / 1 / 24 | 🔴 Bliv hjemme | 19:15 | 🚗 | [[AI_KOMMENTAR_2026-10-24]] |
 
 **Fast anbefalingsregel:** B50+A25 ≥70 = 🟢 Kør; 60–69,99 = 🟡 Afvent; <60 = 🔴 Bliv hjemme. W32 og P32 påvirker ikke anbefalingen.
 
 ## 🏆 2. BEDSTE TIDSPUNKT
 
 **Bedste dag:** Mandag 19/10/2026  
-**B50+A25:** 48 point  
+**B50+A25:** 49 point  
 **Anbefaling:** 🔴 BLIV HJEMME
 
 **Bedste tidsrum:** [[AI_BEDSTE_TIDSRUM]]
@@ -32,7 +32,7 @@
 
 | Parameter | Seneste 72 timer | Næste 48 timer | Vurdering |
 |---|---|---|---|
-| Vind | V, 4.1–10.3 m/s | Ø, 3.4–6.4 m/s | [[AI_VEJR_VIND]] |
-| Bølger | 1.2–2.1 m | 0.7–1.8 m | [[AI_VEJR_BOELGER]] |
-| Strøm | svag/neutral, middel -0.00 m/s | sydgående, middel -0.08 m/s | [[AI_VEJR_STROEM]] |
-| NW-påvirkning | middel 0.21, max 0.61 | middel 0.07, max 0.35 | [[AI_VEJR_NW]] |
+| Vind | N, 4.1–10.6 m/s | Ø, 3.2–5.9 m/s | [[AI_VEJR_VIND]] |
+| Bølger | 1.1–2.1 m | 0.6–1.2 m | [[AI_VEJR_BOELGER]] |
+| Strøm | svag/neutral, middel -0.02 m/s | sydgående, middel -0.04 m/s | [[AI_VEJR_STROEM]] |
+| NW-påvirkning | middel 0.24, max 0.61 | middel 0.01, max 0.13 | [[AI_VEJR_NW]] |
