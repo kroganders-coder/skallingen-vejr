@@ -1,7 +1,7 @@
 # 🌊 RAVPROGNOSE – SKALLINGEN
 
 **Rapportversion:** 1.2  
-**Opdateret:** 16/11/2026 kl. 10:32  
+**Opdateret:** 16/11/2026 kl. 22:36  
 **Jagtvindue:** 18:00–02:00
 
 ## 📊 1. PROGNOSE
@@ -12,7 +12,7 @@
 | Tir 17/11 | 23 / 22 / 2 | 🔴 Bliv hjemme | 00:00 | 🚗 | [[AI_KOMMENTAR_2026-11-17]] |
 | Ons 18/11 | 21 / 21 / 7 | 🔴 Bliv hjemme | 01:45 | 🚗 | [[AI_KOMMENTAR_2026-11-18]] |
 | Tor 19/11 | 32 / 31 / 31 | 🔴 Bliv hjemme | 02:00 | 🚗 | [[AI_KOMMENTAR_2026-11-19]] |
-| Fre 20/11 | 19 / 19 / 4 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-11-20]] |
+| Fre 20/11 | 20 / 19 / 4 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-11-20]] |
 | Lør 21/11 | 17 / 16 / 0 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-11-21]] |
 | Søn 22/11 | 12 / 4 / 0 | 🔴 Bliv hjemme | 18:00 | 🚗 | [[AI_KOMMENTAR_2026-11-22]] |
 
@@ -32,7 +32,7 @@
 
 | Parameter | Seneste 72 timer | Næste 48 timer | Vurdering |
 |---|---|---|---|
-| Vind | SV, 2.5–16.5 m/s | NØ, 1.7–6.3 m/s | [[AI_VEJR_VIND]] |
-| Bølger | 1.2–3.8 m | 1.0–2.1 m | [[AI_VEJR_BOELGER]] |
-| Strøm | svag/neutral, middel +0.00 m/s | sydgående, middel -0.05 m/s | [[AI_VEJR_STROEM]] |
-| NW-påvirkning | middel 0.30, max 0.97 | middel 0.30, max 0.76 | [[AI_VEJR_NW]] |
+| Vind | SV, 2.7–11.4 m/s | NØ, 0.6–8.5 m/s | [[AI_VEJR_VIND]] |
+| Bølger | 1.2–2.4 m | 0.7–1.7 m | [[AI_VEJR_BOELGER]] |
+| Strøm | nordgående, middel +0.02 m/s | sydgående, middel -0.06 m/s | [[AI_VEJR_STROEM]] |
+| NW-påvirkning | middel 0.24, max 0.79 | middel 0.21, max 0.57 | [[AI_VEJR_NW]] |
