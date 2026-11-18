@@ -1,7 +1,7 @@
 # 🌊 RAVPROGNOSE – SKALLINGEN
 
 **Rapportversion:** 1.2  
-**Opdateret:** 18/11/2026 kl. 10:31  
+**Opdateret:** 18/11/2026 kl. 22:39  
 **Jagtvindue:** 18:00–02:00
 
 ## 📊 1. PROGNOSE
@@ -32,7 +32,7 @@
 
 | Parameter | Seneste 72 timer | Næste 48 timer | Vurdering |
 |---|---|---|---|
-| Vind | Ø, 1.2–11.2 m/s | NØ, 0.5–7.5 m/s | [[AI_VEJR_VIND]] |
-| Bølger | 1.0–2.0 m | 0.4–1.9 m | [[AI_VEJR_BOELGER]] |
-| Strøm | nordgående, middel +0.06 m/s | nordgående, middel +0.06 m/s | [[AI_VEJR_STROEM]] |
-| NW-påvirkning | middel 0.19, max 0.71 | middel 0.24, max 0.62 | [[AI_VEJR_NW]] |
+| Vind | NØ, 1.2–11.2 m/s | N, 0.5–6.4 m/s | [[AI_VEJR_VIND]] |
+| Bølger | 1.0–2.0 m | 0.4–1.6 m | [[AI_VEJR_BOELGER]] |
+| Strøm | nordgående, middel +0.08 m/s | svag/neutral, middel -0.01 m/s | [[AI_VEJR_STROEM]] |
+| NW-påvirkning | middel 0.24, max 0.71 | middel 0.30, max 0.56 | [[AI_VEJR_NW]] |
